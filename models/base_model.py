@@ -16,15 +16,24 @@ class BaseModel:
     """
     Parent class.
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Instantiation method with
         id,created_at and updated
         at instance attributes.
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                elif key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.fromisoformat(value))
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
 
     def __str__(self):
         """
@@ -50,7 +59,7 @@ class BaseModel:
         isoformat() of datetime object
         """
         object_dict = self.__dict__.copy()
-        object_dict['__class__'] = self.__class__.__name__
-        object_dict['created_at'] = self.created_at.isoformat()
-        object_dict['updated_at'] = self.updated_at.isoformat()
+        object_dict["__class__"] = self.__class__.__name__
+        object_dict["created_at"] = self.created_at.isoformat()
+        object_dict["updated_at"] = self.updated_at.isoformat()
         return (object_dict)
