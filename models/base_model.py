@@ -8,8 +8,8 @@ class BaseModel.
 
 
 # importing libraries
-from uuid import uuid4
 from datetime import datetime
+from uuid import uuid4
 
 
 class BaseModel:
@@ -33,3 +33,24 @@ class BaseModel:
         # Gets name of class that self is an instance of
         class_name = self.__class__.__name__
         return ("[{}] ({}) {}".format(class_name, self.id, self.__dict__))
+
+    def save(self):
+        """
+        Updates updated_at instance
+        with the current time
+        """
+        self.updated_at = datetime.now()
+
+    def to_dict(self):
+        """
+        Creates a dictionary with all instance
+        attributes and adds '__class__' key.
+        Created_at and updated_at are
+        converted to string format using
+        isoformat() of datetime object
+        """
+        object_dict = self.__dict__.copy()
+        object_dict['__class__'] = self.__class__.__name__
+        object_dict['created_at'] = self.created_at.isoformat()
+        object_dict['updated_at'] = self.updated_at.isoformat()
+        return (object_dict)
