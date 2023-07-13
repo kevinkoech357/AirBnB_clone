@@ -34,6 +34,12 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def emptyline(self):
+        """
+        Empty line cannot be executed
+        """
+        pass
+
     # test for non-interactive mode
     # def do_greet(self, line):
     #    print(f"hello {line}")
