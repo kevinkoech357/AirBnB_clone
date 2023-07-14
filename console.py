@@ -6,9 +6,17 @@ point of the command interpreter
 """
 
 
-# importing cmd library
+# importing libraries and modules
 import cmd
 import sys
+from models import storage
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -19,6 +27,30 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     # Creates a welcome message
     # intro = "Welcome to AirBnB Console"
+    classes = ["BaseModel", "Amenity", "City",
+               "Place", "Review", "State",
+               "User"]
+
+    def do_create(self, argv):
+        """
+        Creates a new instance of BaseModel,
+        saves it to JSON file and prints
+        its id
+        """
+        # if no argument is passed e.g create
+        if not argv:
+            print("** class name missing **")
+            return
+
+        class_name = argv.strip()
+        # if classname doesn't exist
+        if class_name not in self.classes:
+            print("** class doesn't exist **")
+            return
+        else:
+            new_instance = eval(argv)()
+            new_instance.save()
+            print(new_instance.id)
 
     def do_quit(self, arg):
         """
