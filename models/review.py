@@ -10,7 +10,7 @@ class review
 from models.base_model import BaseModel
 
 
-class Revie(BaseModel):
+class Review(BaseModel):
     """
     A class that inherits from BaseModel
     """
