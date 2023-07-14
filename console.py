@@ -37,11 +37,12 @@ class HBNBCommand(cmd.Cmd):
         saves it to JSON file and prints
         its id
         """
-        # if no argument is passed e.g create
+        # check if no argument is passed e.g create
         if not argv:
             print("** class name missing **")
             return
 
+        # remove whitespaces
         class_name = argv.strip()
         # if classname doesn't exist
         if class_name not in self.classes:
@@ -51,6 +52,64 @@ class HBNBCommand(cmd.Cmd):
             new_instance = eval(argv)()
             new_instance.save()
             print(new_instance.id)
+
+    def do_show(self, argv):
+        """
+        Prints string representation of an instance
+        based on class name
+        """
+        # check if no argument is passed
+        if not argv:
+            print("** class name missing **")
+            return
+
+        # splits arguments
+        args = argv.split()
+        # check if class is available
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        # check if id is input after classname
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+
+        # stores user input
+        object_key = "{}.{}".format(args[0], args[1])
+        # assigns all returned objects to objects
+        objects = storage.all()
+        # loops through checking if user input is in file.json
+        if object_key in objects:
+            print(objects[object_key])
+        else:
+            print("** no instance found **")
+
+    def do_destory(self, argv):
+        """
+        Deletes an instance based on class name
+        and id. Then saves changes to JSON file
+        """
+        # refer to comments in show for reference
+        if not argv:
+            print("** class name missing **")
+            return
+
+        args = argv.split()
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+
+        object_key = "{}.{}".format(args[0], args[1])
+        objects = storage.all()
+        if object_key in objects:
+            del objects[object_key]
+            storage.save()
+        else:
+            print("** no instance found **")
 
     def do_quit(self, arg):
         """
