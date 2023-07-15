@@ -6,6 +6,7 @@ Defines unittests for models/review.py
 from models.review import Review
 from models import storage
 from models.base_model import BaseModel
+from models.amenity import Amenity
 from datetime import datetime
 import unittest
 import time
@@ -46,9 +47,9 @@ class TestReview(unittest.TestCase):
 
         """
         amen = Review()
-        self.assertEqual(str, type(Review.name))
-        self.assertIn("name", dir(Review()))
-        self.assertNotIn("name", amen.__dict__)
+        self.assertEqual(str, type(Review.place_id))
+        self.assertIn("place_id", dir(Review()))
+        self.assertNotIn("place_id", amen.__dict__)
 
     def test_class(self):
         """

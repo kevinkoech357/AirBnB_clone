@@ -47,9 +47,9 @@ class TestUser(unittest.TestCase):
 
         """
         amen = User()
-        self.assertEqual(str, type(User.name))
-        self.assertIn("name", dir(User()))
-        self.assertNotIn("name", amen.__dict__)
+        self.assertEqual(str, type(User.email))
+        self.assertIn("email", dir(User()))
+        self.assertNotIn("email", amen.__dict__)
 
     def test_class(self):
         """

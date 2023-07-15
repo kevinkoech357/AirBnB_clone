@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Defines uittests for models/amenity.py
+Defines unittests for models/amenity.py
 
 """
 from models.amenity import Amenity
@@ -15,7 +15,7 @@ import os
 import uuid
 
 
-class Testamenity(unittest.TestCase):
+class TestAmenity(unittest.TestCase):
     """
     unit test for amenity class
 
