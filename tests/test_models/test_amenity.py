@@ -3,6 +3,7 @@
 Defines unittests for models/amenity.py
 
 """
+import models
 from models.amenity import Amenity
 from models import storage
 from models.base_model import BaseModel
