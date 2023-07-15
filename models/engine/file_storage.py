@@ -71,7 +71,7 @@ class FileStorage:
                     self.__objects = {}
                     for key, value in object_dict.items():
                         class_name, object_dict = key.split(".")
-                        # class_object = eval(class_name) - security risk
+                    # class_object = eval(class_name) - security risk
                         self.__objects[key] = eval(value["__class__"])(**value)
             except FileNotFoundError:
                 pass
