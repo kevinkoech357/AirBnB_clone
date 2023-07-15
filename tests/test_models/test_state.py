@@ -18,7 +18,6 @@ import uuid
 class TestState(unittest.TestCase):
     """
     unit test for State class
-
     """
 
     def test_instantiation(self):
@@ -66,8 +65,6 @@ class TestState(unittest.TestCase):
         """
         st = State()
         self.assertTrue(issubclass(st.__class__, BaseModel))
-
-
 
 
 if __name__ == "__main__":

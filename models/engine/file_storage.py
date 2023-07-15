@@ -60,7 +60,6 @@ class FileStorage:
         from models.state import State
         from models.user import User
 
-
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, "r", encoding="utf-8") as file:
                 # read file contents

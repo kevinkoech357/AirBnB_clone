@@ -68,7 +68,5 @@ class TestUser(unittest.TestCase):
         self.assertTrue(issubclass(us.__class__, BaseModel))
 
 
-
-
 if __name__ == "__main__":
     unittest.main()

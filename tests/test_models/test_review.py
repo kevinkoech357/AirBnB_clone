@@ -68,7 +68,5 @@ class TestReview(unittest.TestCase):
         self.assertTrue(issubclass(rev.__class__, BaseModel))
 
 
-
-
 if __name__ == "__main__":
     unittest.main()

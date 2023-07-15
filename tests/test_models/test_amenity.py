@@ -20,13 +20,10 @@ class TestAmenity(unittest.TestCase):
     unit test for amenity class
 
     """
-
     def test_instantiation(self):
         """
         Tests the instantiation of Amenity class.
-        
         """
-
         q = Amenity()
         self.assertEqual(str(type(q)), "<class 'models.amenity.Amenity'>")
         self.assertIsInstance(q, Amenity)
@@ -66,8 +63,6 @@ class TestAmenity(unittest.TestCase):
         """
         amenity1 = Amenity()
         self.assertTrue(issubclass(amenity1.__class__, BaseModel))
-
-
 
 
 if __name__ == "__main__":

@@ -40,7 +40,6 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists("file.json"):
             os.remove("file.json")
 
-
     def test_docs(self):
         """Test docstrings"""
         self.assertIsNotNone(FileStorage.all)
@@ -66,7 +65,6 @@ class TestFileStorage(unittest.TestCase):
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
-
 
 
 if __name__ == "__main__":
