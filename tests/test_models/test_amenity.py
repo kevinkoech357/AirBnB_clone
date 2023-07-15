@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Defines uittests for models/amenity.py
+Defines unittests for models/amenity.py
 
 """
 import models
@@ -16,18 +16,15 @@ import os
 import uuid
 
 
-class Testamenity(unittest.TestCase):
+class TestAmenity(unittest.TestCase):
     """
     unit test for amenity class
 
     """
-
     def test_instantiation(self):
         """
         Tests the instantiation of Amenity class.
-        
         """
-
         q = Amenity()
         self.assertEqual(str(type(q)), "<class 'models.amenity.Amenity'>")
         self.assertIsInstance(q, Amenity)
@@ -67,8 +64,6 @@ class Testamenity(unittest.TestCase):
         """
         amenity1 = Amenity()
         self.assertTrue(issubclass(amenity1.__class__, BaseModel))
-
-
 
 
 if __name__ == "__main__":

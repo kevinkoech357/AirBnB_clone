@@ -6,6 +6,7 @@ Defines unittests for file storage
 from models.engine.file_storage import FileStorage
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 from datetime import datetime
 import unittest
 import time
@@ -21,7 +22,7 @@ class TestFileStorage(unittest.TestCase):
 
     """
 
-     @classmethod
+    @classmethod
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
@@ -39,15 +40,14 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists("file.json"):
             os.remove("file.json")
 
-
-     def test_docs(self):
+    def test_docs(self):
         """Test docstrings"""
         self.assertIsNotNone(FileStorage.all)
         self.assertIsNotNone(FileStorage.new)
         self.assertIsNotNone(FileStorage.save)
         self.assertIsNotNone(FileStorage.reload)
 
-     def test_all(self):
+    def test_all(self):
         """tests if all works in File Storage"""
         storage = FileStorage()
         obj = storage.all()
@@ -65,7 +65,6 @@ class TestFileStorage(unittest.TestCase):
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
-
 
 
 if __name__ == "__main__":

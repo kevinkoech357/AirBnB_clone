@@ -24,7 +24,6 @@ class Test_City(unittest.TestCase):
     def test_instantiation(self):
         """
         Tests the instantiation of the City class.
-        
         """
 
         q = City()
@@ -66,8 +65,6 @@ class Test_City(unittest.TestCase):
         """
         c = City()
         self.assertTrue(issubclass(c.__class__, BaseModel))
-
-
 
 
 if __name__ == "__main__":
