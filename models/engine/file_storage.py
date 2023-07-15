@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 <<<<<<< HEAD
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
 """A module for file storage
 """
@@ -28,6 +29,8 @@ class FileStorage:
         """Gets the __objects content
         Returns the content of the `__objects` class attribute.
 =======
+=======
+>>>>>>> 50b420b8e338b8cff0796e437ed6f2930fcc7e7a
 
 """
 A module that serializes instances to
@@ -53,11 +56,15 @@ class FileStorage:
     def all(self):
         """
         Return dictionary objects
+<<<<<<< HEAD
 >>>>>>> 2a3efbff0bc123af7195fb69d07a0f1c2c09dd65
+=======
+>>>>>>> 50b420b8e338b8cff0796e437ed6f2930fcc7e7a
         """
         return self.__objects
 
     def new(self, obj):
+<<<<<<< HEAD
 <<<<<<< HEAD
         """Saves a new object in the `__objects` attribute
         Args:
@@ -91,6 +98,8 @@ class FileStorage:
                 for k, v in json_dict.items():
                     self.__objects[k] = eval(v['__class__'])(**v)
 =======
+=======
+>>>>>>> 50b420b8e338b8cff0796e437ed6f2930fcc7e7a
         """
         Sets in __objects the obj
         with key <obj class name>.id
@@ -123,7 +132,6 @@ class FileStorage:
         from models.state import State
         from models.user import User
 
-
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, "r", encoding="utf-8") as file:
                 # read file contents
@@ -140,4 +148,7 @@ class FileStorage:
 # if __name__ == "__main__":
 #    storage = FileStorage()
 #    storage.reload()
+<<<<<<< HEAD
 >>>>>>> 2a3efbff0bc123af7195fb69d07a0f1c2c09dd65
+=======
+>>>>>>> 50b420b8e338b8cff0796e437ed6f2930fcc7e7a
