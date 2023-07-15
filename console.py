@@ -170,7 +170,14 @@ class HBNBCommand(cmd.Cmd):
 
         object_key = "{}.{}".format(class_name, instance_id)
         objects = storage.all()
-        if object_key in 
+        object_dict = objects[object_key].__dict__
+        if attribute_name in object_dict:
+            object_dict[attribute_name] = type(object_dict[attribute_name]
+                                               )(attribute_value)
+        else:
+            object_dict[attribute_name] = attribute_value
+
+        storage.save()
 
     def do_quit(self, arg):
         """
