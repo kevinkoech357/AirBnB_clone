@@ -140,6 +140,38 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    def do_update(self, argv):
+        """
+        Updates an instance based on the class name
+        then saves changes to JSON file
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+        """
+        args = argv.split()
+        if not argv:
+            print("** class name missing **")
+            return
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** id instance missing **")
+            return
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        class_name = args[0]
+        instance_id = args[1]
+        attribute_name = args[2]
+        attribute_value = args[3].strip('"')
+
+        object_key = "{}.{}".format(class_name, instance_id)
+        objects = storage.all()
+        if object_key in 
+
     def do_quit(self, arg):
         """
         Quits the console
