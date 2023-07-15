@@ -204,28 +204,28 @@ class HBNBCommand(cmd.Cmd):
     #    print(f"hello {line}")
 
 
-def run_commands(commands):
+# def run_commands(commands):
     """
     Read commands from a file
     and run them in non-interactive mode
     """
-    hbnb_command = HBNBCommand()
+    # hbnb_command = HBNBCommand()
     # disables need for raw user command input
-    hbnb_command.use_rawinput = False
-    hbnb_command.stdout = sys.stdout
-    hbnb_command.stdin = sys.stdin
+    # hbnb_command.use_rawinput = False
+    # hbnb_command.stdout = sys.stdout
+    # hbnb_command.stdin = sys.stdin
     # appends command elements to end of cmd queue
-    hbnb_command.cmdqueue.extend(commands)
-    hbnb_command.cmdloop()
+    # hbnb_command.cmdqueue.extend(commands)
+    # hbnb_command.cmdloop()
 
 
 if __name__ == "__main__":
     # check of cl arguments
-    if len(sys.argv) > 1:
+    # if len(sys.argv) > 1:
         # Non-interactive mode entry
-        with open(sys.argv[1]) as file:
-            commands = file.read().splitlines()
-            run_commands(commands)
-    else:
-        # Interactive mode entry
-        HBNBCommand().cmdloop()
+        # with open(sys.argv[1]) as file:
+            # commands = file.read().splitlines()
+            # run_commands(commands)
+    # else:
+    # Interactive mode entry
+    HBNBCommand().cmdloop()
