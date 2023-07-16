@@ -52,8 +52,8 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_instance = eval(args[0])()
-            new_instance.save()
+            new_instance = self.classes[args[0]]()
+            models.storage.save()
             print(new_instance.id)
 
     def do_show(self, argv):
