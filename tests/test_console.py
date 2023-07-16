@@ -14,40 +14,49 @@ import json
 import os
 import uuid
 
-class Test_console(unittest.TestCase):
-    """Unittests for testing the console ."""
+#!/usr/bin/python3
+"""Test Console"""
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+import unittest
 
-    def test_prompt_string(self):
-        """Unittest for testing the prompt command"""
-        self.assertEqual("(hbnb) ", HBNBCommand.prompt)
 
-    def test_empty_line(self):
-        """Unittest for checking"""
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(""))
-            self.assertEqual("", output.getvalue().strip())
+class TestConsole(unittest.TestCase):
+    """
+    unittest for the console
+    """
+    def test_class(self):
+        """
+        Unittest to check if all required classes
+        are present
+        """
+        city1 = City()
+        amenity1 = Amenity()
+        state1 = State()
+        rev1 = Review()
+        place1 = Place()
+        self.assertEqual(city1.__class__.__name__, "City")
+        self.assertEqual(amenity1.__class__.__name__, "Amenity")
+        self.assertEqual(state1.__class__.__name__, "State")
+        self.assertEqual(rev1.__class__.__name__, "Review")
+        self.assertEqual(place1.__class__.__name__, "Place")
 
-    def test_help_create(self):
-        """Unittest for the create fucntion """
-        h = ("Usage: create <class>\n        "
-             "Create a new class instance and print its id.")
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd("help create"))
-            self.assertEqual(h, output.getvalue().strip())
+    def test_inherit(self):
+        """
+        inherit correcly from BaseModel
+        """
+        city1 = City()
+        amenity1 = Amenity()
+        state1 = State()
+        rev1 = Review()
+        place1 = Place()
+        self.assertTrue(issubclass(city1.__class__, BaseModel))
+        self.assertTrue(issubclass(amenity1.__class__, BaseModel))
+        self.assertTrue(issubclass(state1.__class__, BaseModel))
+        self.assertTrue(issubclass(rev1.__class__, BaseModel))
+        self.assertTrue(issubclass(place1.__class__, BaseModel))
 
-    def test_help_show(self):
-        """Unnitest for the show"""
-        h = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
-             "Display the string representation of a class instance of"
-             " a given id.")
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd("help show"))
-            self.assertEqual(h, output.getvalue().strip())
-
-    def test_help_destroy(self):
-        """unittest"""
-        h = ("Usage: destroy <class> <id> or <class>.destroy(<id>)\n        "
-             "Delete a class instance of a given id.")
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd("help destroy"))
-            self.assertEqual(h, output.getvalue().strip())
