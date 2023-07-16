@@ -8,7 +8,7 @@ point of the command interpreter
 
 # importing libraries and modules
 import cmd
-import sys
+import models
 from models import storage
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -27,9 +27,15 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     # Creates a welcome message
     # intro = "Welcome to AirBnB Console"
-    classes = ["BaseModel", "Amenity", "City",
-               "Place", "Review", "State",
-               "User"]
+    classes = {
+        'BaseModel': BaseModel,
+        'Amenity': Amenity,
+        'Place': Place,
+        'User': User,
+        'State': State,
+        'Review': Review,
+        'City': City
+    }
 
     def do_create(self, argv):
         """
@@ -37,20 +43,15 @@ class HBNBCommand(cmd.Cmd):
         saves it to JSON file and prints
         its id
         """
+        args = argv.split(' ')
         # check if no argument is passed e.g create
-        if not argv:
+        if argv == "":
             print("** class name missing **")
-            return
-
-        # remove whitespaces
-        class_name = argv.strip()
-        # if classname doesn't exist
-        if class_name not in self.classes:
+        elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
         else:
-            new_instance = eval(argv)()
-            new_instance.save()
+            new_instance = self.classes[args[0]]()
+            models.storage.save()
             print(new_instance.id)
 
     def do_show(self, argv):
@@ -58,65 +59,56 @@ class HBNBCommand(cmd.Cmd):
         Prints string representation of an instance
         based on class name
         """
-        # check if no argument is passed
-        if not argv:
-            print("** class name missing **")
-            return
-
         # splits arguments
-        args = argv.split()
+        args = argv.split(' ')
+
+        # check if no argument is passed
+        if args[0] == "":
+            print("** class name missing **")
         # check if class is available
-        if args[0] not in self.classes:
+        elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
         # check if id is input after classname
-        if len(args) < 2:
+        elif len(args) < 2:
             print("** instance id missing **")
-            return
-
-        # stores user input
-        object_key = "{}.{}".format(args[0], args[1])
-        # assigns all returned objects to objects
-        objects = storage.all()
-        # loops through checking if user input is in file.json
-        if object_key in objects:
-            print(objects[object_key])
         else:
-            print("** no instance found **")
+            objects = models.storage.all()
+            # stores user input
+            object_key = "{}.{}".format(args[0], args[1])
+            # loops through checking if user input is in file.json
+            if object_key in objects:
+                print(objects[object_key])
+            else:
+                print("** no instance found **")
 
-    def do_destory(self, argv):
+    def do_destroy(self, argv):
         """
         Deletes an instance based on class name
         and id. Then saves changes to JSON file
         """
-        # refer to comments in show for reference
-        if not argv:
-            print("** class name missing **")
-            return
-
         args = argv.split()
-        if args[0] not in self.classes:
+        # refer to comments in show for reference
+        if args[0] == "":
+            print("** class name missing **")
+        elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
-
-        if len(args) < 2:
+        elif len(args) < 2:
             print("** instance id missing **")
-            return
-
-        object_key = "{}.{}".format(args[0], args[1])
-        objects = storage.all()
-        if object_key in objects:
-            del objects[object_key]
-            storage.save()
         else:
-            print("** no instance found **")
+            objects = models.storage.all()
+            object_key = "{}.{}".format(args[0], args[1])
+            if object_key in objects:
+                del objects[object_key]
+                models.storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, argv):
         """
         Prints a string representation of all instances
         based or not on the class name
         """
-        objects = storage.all()
+        objects = models.storage.all()
         args = argv.split()
 
         # if argv:
@@ -130,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
             if not argv:
                 for key, value in objects.items():
                     output.append(str(value))
-                # print(output)
+                print(output)
             else:
                 class_name = args[0]
                 for key, value in objects.items():
@@ -147,37 +139,32 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args = argv.split()
-        if not argv:
+        if args[0] == "":
             print("** class name missing **")
-            return
-        if args[0] not in self.classes:
+        elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
-        if len(args) < 2:
+        elif len(args) < 2:
             print("** id instance missing **")
-            return
-        if len(args) < 3:
+        elif len(args) < 3:
             print("** attribute name missing **")
-            return
-        if len(args) < 4:
+        elif len(args) < 4:
             print("** value missing **")
-            return
-
-        class_name = args[0]
-        instance_id = args[1]
-        attribute_name = args[2]
-        attribute_value = args[3].strip('"')
-
-        object_key = "{}.{}".format(class_name, instance_id)
-        objects = storage.all()
-        object_dict = objects[object_key].__dict__
-        if attribute_name in object_dict:
-            object_dict[attribute_name] = type(object_dict[attribute_name]
-                                               )(attribute_value)
         else:
-            object_dict[attribute_name] = attribute_value
+            class_name = args[0]
+            instance_id = args[1]
+            attribute_name = args[2]
+            attribute_value = args[3].strip('"')
 
-        storage.save()
+            object_key = "{}.{}".format(class_name, instance_id)
+            objects = storage.all()
+            object_dict = objects[object_key].__dict__
+            if attribute_name in object_dict:
+                object_dict[attribute_name] = type(object_dict[
+                    attribute_name])(attribute_value)
+            else:
+                object_dict[attribute_name] = attribute_value
+
+            models.storage.save()
 
     def do_quit(self, arg):
         """
@@ -205,10 +192,10 @@ class HBNBCommand(cmd.Cmd):
 
 
 # def run_commands(commands):
-    """
-    Read commands from a file
-    and run them in non-interactive mode
-    """
+    # """
+    # Read commands from a file
+    # and run them in non-interactive mode
+    # """
     # hbnb_command = HBNBCommand()
     # disables need for raw user command input
     # hbnb_command.use_rawinput = False
@@ -222,10 +209,10 @@ class HBNBCommand(cmd.Cmd):
 if __name__ == "__main__":
     # check of cl arguments
     # if len(sys.argv) > 1:
-        # Non-interactive mode entry
-        # with open(sys.argv[1]) as file:
-            # commands = file.read().splitlines()
-            # run_commands(commands)
+    # Non-interactive mode entry
+    # with open(sys.argv[1]) as file:
+    # commands = file.read().splitlines()
+    # run_commands(commands)
     # else:
     # Interactive mode entry
     HBNBCommand().cmdloop()
