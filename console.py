@@ -205,10 +205,10 @@ class HBNBCommand(cmd.Cmd):
 
 
 # def run_commands(commands):
-    """
-    Read commands from a file
-    and run them in non-interactive mode
-    """
+    # """
+    # Read commands from a file
+    # and run them in non-interactive mode
+    # """
     # hbnb_command = HBNBCommand()
     # disables need for raw user command input
     # hbnb_command.use_rawinput = False
@@ -222,10 +222,10 @@ class HBNBCommand(cmd.Cmd):
 if __name__ == "__main__":
     # check of cl arguments
     # if len(sys.argv) > 1:
-        # Non-interactive mode entry
-        # with open(sys.argv[1]) as file:
-            # commands = file.read().splitlines()
-            # run_commands(commands)
+    # Non-interactive mode entry
+    # with open(sys.argv[1]) as file:
+    # commands = file.read().splitlines()
+    # run_commands(commands)
     # else:
     # Interactive mode entry
     HBNBCommand().cmdloop()

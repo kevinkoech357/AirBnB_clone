@@ -9,7 +9,7 @@ file to instances
 
 # importing libraries and modules
 import json
-import os
+# import os
 
 
 class FileStorage:
@@ -61,18 +61,17 @@ class FileStorage:
         from models.user import User
 
 
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, "r", encoding="utf-8") as file:
-                # read file contents
-                file_content = file.read()
-                # deserialize the json string
-                object_dict = json.loads(file_content)
-                # print(object_dict)
-                self.__objects = {}
-                for key, value in object_dict.items():
-                    class_name, object_dict = key.split(".")
-                    # class_object = eval(class_name) - security risk
-                    self.__objects[key] = eval(value["__class__"])(**value)
+        # if os.path.isfile(self.__file_path):
+        with open(self.__file_path, "r", encoding="utf-8") as file:
+            # read file contents
+            file_content = file.read()
+            # deserialize the json string
+            object_dict = json.loads(file_content)
+            # print(object_dict)
+            for key, value in object_dict.items():
+                class_name, object_dict = key.split(".")
+                # class_object = eval(class_name) - security risk
+                self.__objects[key] = eval(value["__class__"])(**value)
 
 # if __name__ == "__main__":
 #    storage = FileStorage()
