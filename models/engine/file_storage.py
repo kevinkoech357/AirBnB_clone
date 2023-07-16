@@ -18,6 +18,7 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
+
 class FileStorage:
     """
     Definition of class FileStorage
@@ -58,8 +59,8 @@ class FileStorage:
         Deserialize the JSON file to objects
         """
         class_dict = {
-            'BaseModel' : BaseModel,
-            'Amenity' : Amenity,
+            'BaseModel': BaseModel,
+            'Amenity': Amenity,
             'City': City,
             'Place': Place,
             'Review': Review,
@@ -82,6 +83,7 @@ class FileStorage:
                         self.__objects[key] = class_dict[class_name](**value)
         except FileNotFoundError:
             pass
+
 
 if __name__ == "__main__":
     storage = FileStorage()
