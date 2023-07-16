@@ -2,11 +2,14 @@
 This repository contains a clone of the AirBnB application, implemented as a command-line interface (CLI) for managing objects and data storage. It allows users to create, update, delete, and retrieve objects from various classes like users, places, bookings, and more.
 
 ## Table of Contents
+* System Requirements
 * Features
 * Installation
 * Usage
-* Contributing
-* License
+
+## System Requirements
+* Ubuntu 20.04
+* Python 3.8.5
 
 ## Features
 * Interactive command-line interface for managing objects.
@@ -49,3 +52,7 @@ To delete a user:
 (hbnb) destroy User 1234-5678-9012
 ```
 For a complete list of available commands and usage instructions, please refer to the command documentation within the application.
+
+## Authors
+* Kevin Koech
+* Wilson Museve
