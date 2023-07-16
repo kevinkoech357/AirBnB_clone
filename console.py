@@ -8,7 +8,7 @@ point of the command interpreter
 
 # importing libraries and modules
 import cmd
-import sys
+import models
 from models import storage
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -37,19 +37,16 @@ class HBNBCommand(cmd.Cmd):
         saves it to JSON file and prints
         its id
         """
+        args = argv.split()
         # check if no argument is passed e.g create
-        if not argv:
+        if argv == "":
             print("** class name missing **")
-            return
 
-        # remove whitespaces
-        class_name = argv.strip()
         # if classname doesn't exist
-        if class_name not in self.classes:
+        if args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
         else:
-            new_instance = eval(argv)()
+            new_instance = eval(args[0])()
             new_instance.save()
             print(new_instance.id)
 
@@ -58,13 +55,13 @@ class HBNBCommand(cmd.Cmd):
         Prints string representation of an instance
         based on class name
         """
-        # check if no argument is passed
-        if not argv:
-            print("** class name missing **")
-            return
-
         # splits arguments
         args = argv.split()
+
+        # check if no argument is passed
+        if argv == "":
+            print("** class name missing **")
+
         # check if class is available
         if args[0] not in self.classes:
             print("** class doesn't exist **")
@@ -74,10 +71,9 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
+        objects = storage.all()
         # stores user input
         object_key = "{}.{}".format(args[0], args[1])
-        # assigns all returned objects to objects
-        objects = storage.all()
         # loops through checking if user input is in file.json
         if object_key in objects:
             print(objects[object_key])
@@ -103,8 +99,8 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        object_key = "{}.{}".format(args[0], args[1])
         objects = storage.all()
+        object_key = "{}.{}".format(args[0], args[1])
         if object_key in objects:
             del objects[object_key]
             storage.save()
