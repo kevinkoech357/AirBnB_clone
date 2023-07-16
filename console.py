@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
-    def do_destory(self, argv):
+    def do_destroy(self, argv):
         """
         Deletes an instance based on class name
         and id. Then saves changes to JSON file
