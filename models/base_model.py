@@ -9,7 +9,7 @@ class BaseModel.
 # importing libraries
 from datetime import datetime
 from uuid import uuid4
-from models import storage
+import models
 
 
 class BaseModel:

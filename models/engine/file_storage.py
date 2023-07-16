@@ -10,7 +10,13 @@ file to instances
 # importing libraries and modules
 import json
 # import os
-
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 class FileStorage:
     """
@@ -45,33 +51,37 @@ class FileStorage:
             object_dict[key] = value.to_dict()
 
         with open(self.__file_path, "w", encoding="utf-8") as file:
-            file.write(json.dumps(object_dict))
+            json.dump(object_dict, file)
 
     def reload(self):
         """
         Deserialize the JSON file to objects
         """
-        # importing modules
-        from models.base_model import BaseModel
-        from models.amenity import Amenity
-        from models.city import City
-        from models.place import Place
-        from models.review import Review
-        from models.state import State
-        from models.user import User
+        class_dict = {
+            'BaseModel' : BaseModel,
+            'Amenity' : Amenity,
+            'City': City,
+            'Place': Place,
+            'Review': Review,
+            'State': State,
+            'User': User
+        }
 
         # if os.path.isfile(self.__file_path):
-        with open(self.__file_path, "r", encoding="utf-8") as file:
-            # read file contents
-            file_content = file.read()
-            # deserialize the json string
-            object_dict = json.loads(file_content)
-            # print(object_dict)
-            for key, value in object_dict.items():
-                class_name, object_dict = key.split(".")
-                # class_object = eval(class_name) - security risk
-                self.__objects[key] = eval(value["__class__"])(**value)
+        try:
+            with open(self.__file_path, "r", encoding="utf-8") as file:
+                # read file contents
+                # file_content = file.read()
+                # deserialize the json string
+                object_dict = json.load(file)
+                # print(object_dict)
+                for key, value in object_dict.items():
+                    class_name, object_id = key.split(".")
+                    # class_object = eval(class_name) - security risk
+                    self.__objects[key] = globals()[class_name](**value)
+        except FileNotFoundError:
+            pass
 
-# if __name__ == "__main__":
-#    storage = FileStorage()
-#    storage.reload()
+if __name__ == "__main__":
+    storage = FileStorage()
+    storage.reload()
