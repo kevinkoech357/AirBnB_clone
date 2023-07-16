@@ -27,9 +27,15 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     # Creates a welcome message
     # intro = "Welcome to AirBnB Console"
-    classes = ["BaseModel", "Amenity", "City",
-               "Place", "Review", "State",
-               "User"]
+    classes = {
+        'BaseModel': BaseModel,
+        'Amenity': Amenity,
+        'Place': Place,
+        'User': User,
+        'State': State,
+        'Review': Review,
+        'City': City
+    }
 
     def do_create(self, argv):
         """
