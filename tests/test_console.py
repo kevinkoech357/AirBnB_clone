@@ -3,6 +3,8 @@
 Defines uittests for models/city.py
 
 """
+
+
 from models.city import City
 from models import storage
 from models.base_model import BaseModel
@@ -13,9 +15,6 @@ import re
 import json
 import os
 import uuid
-
-#!/usr/bin/python3
-"""Test Console"""
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -59,4 +58,3 @@ class TestConsole(unittest.TestCase):
         self.assertTrue(issubclass(state1.__class__, BaseModel))
         self.assertTrue(issubclass(rev1.__class__, BaseModel))
         self.assertTrue(issubclass(place1.__class__, BaseModel))
-
