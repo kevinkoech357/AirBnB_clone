@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 def calculate_sum(x, y):
     """Calculating the sum of two numbers."""
     result = x + y
@@ -12,6 +13,3 @@ def main():
     total = calculate_sum(num1, num2)
     print("The sum is:", total)
 
-
-if __name__ == '__main__':
-    main()

@@ -4,6 +4,7 @@ Defines unittests for models/amenity.py
 
 """
 import models
+from models import *
 from models.amenity import Amenity
 from models import storage
 from models.base_model import BaseModel
@@ -18,7 +19,7 @@ import uuid
 
 class TestAmenity(unittest.TestCase):
     """
-    unit test for amenity class
+    unit test for amenity class which includes various methods of different tests
 
     """
     def test_instantiation(self):
@@ -65,6 +66,3 @@ class TestAmenity(unittest.TestCase):
         amenity1 = Amenity()
         self.assertTrue(issubclass(amenity1.__class__, BaseModel))
 
-
-if __name__ == "__main__":
-    unittest.main()
