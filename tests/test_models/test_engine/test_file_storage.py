@@ -14,6 +14,7 @@ import re
 import json
 import os
 import uuid
+import pycodestyle
 
 
 class TestFileStorage(unittest.TestCase):
@@ -65,6 +66,25 @@ class TestFileStorage(unittest.TestCase):
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
+
+    def test_pep8_conformity(self):
+        """
+        Test that file_storage.py file conforms to PEP-8
+        """
+        style = pycodestyle.StyleGuide(quiet=True)
+        result = style.check_files(['models/file_storage.py'])
+        self.assertEqual(result.total_errors, 1,
+                         "Found code style errors (and warnings).")
+
+    def test_pep8_conformity(self):
+        """
+        Test that test_file_storage.py file conform to PEP-8
+        """
+        style = pycodestyle.StyleGuide(quiet=True)
+        result = style.check_files(['tests/test_models/\
+                                        test_file_storage.py'])
+        self.assertEqual(result.total_errors, 1,
+                         "Found code style errors (and warnings).")
 
 
 if __name__ == "__main__":

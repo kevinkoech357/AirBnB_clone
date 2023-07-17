@@ -19,9 +19,22 @@ import uuid
 
 class TestAmenity(unittest.TestCase):
     """
-    unit test for amenity class which includes various methods of different tests
+    unit test for amenity class which
+    includes various methods of different tests
 
     """
+    def setUp(self):
+        """
+        Create new environment before each test
+        """
+        self.amenity = Amenity()
+
+    def tearDown(self):
+        """
+        Clean up environment after test
+        """
+        pass
+
     def test_instantiation(self):
         """
         Tests the instantiation of Amenity class.
@@ -30,6 +43,45 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(str(type(q)), "<class 'models.amenity.Amenity'>")
         self.assertIsInstance(q, Amenity)
         self.assertTrue(issubclass(type(q), BaseModel))
+
+    def test_init_with_args(self):
+        """
+        Test init with args
+        """
+        input_data = {
+            'id': '123',
+            'created_at': '2023-07-07T00:00:00',
+            'updated_at': '2023-07-07T00:00:00',
+            'name': 'Test'
+            }
+
+        amenity = Amenity(**input_data)
+
+        # verify if attributes are set correctly
+        self.assertEqual(amenity.id, '123')
+        self.assertEqual(amenity.created_at,
+                         datetime.fromisoformat('2023-07-07T00:00:00'))
+        self.assertEqual(amenity.updated_at,
+                         datetime.fromisoformat('2023-07-07T00:00:00'))
+        self.assertEqual(amenity.name, 'Test')
+
+    def test_init_without_args(self):
+        """
+        Test init without args
+        """
+        amenity = Amenity()
+
+        self.assertIsNotNone(amenity.id)
+        self.assertIsNotNone(amenity.created_at)
+        self.assertIsNotNone(amenity.updated_at)
+        self.assertEqual(amenity.created_at, amenity.updated_at)
+
+    def test_args(self):
+        """
+        Testing *args
+        """
+        amenity = Amenity(None)
+        self.assertNotIn(None, amenity.__dict__.values())
 
     def test_uuids(self):
         """
@@ -65,4 +117,3 @@ class TestAmenity(unittest.TestCase):
         """
         amenity1 = Amenity()
         self.assertTrue(issubclass(amenity1.__class__, BaseModel))
-
