@@ -45,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args = argv.split(' ')
         # check if no argument is passed e.g create
-        if argv == "":
+        if not argv:
             print("** class name missing **")
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
         args = argv.split(' ')
 
         # check if no argument is passed
-        if args[0] == "":
+        if not argv:
             print("** class name missing **")
         # check if class is available
         elif args[0] not in self.classes:
@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args = argv.split()
         # refer to comments in show for reference
-        if args[0] == "":
+        if not argv:
             print("** class name missing **")
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
@@ -139,12 +139,12 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args = argv.split()
-        if args[0] == "":
+        if not argv:
             print("** class name missing **")
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
         elif len(args) < 3:
             print("** attribute name missing **")
         elif len(args) < 4:
